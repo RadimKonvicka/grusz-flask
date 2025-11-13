@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>e-shop s elektronikou</title>
+    <style>
+        .message {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            text-align: center;
+        }
+        .back-button {
+            display: inline-block;
+            background-color: #666;
+            color: white;
+            padding: 5px 15px;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        .back-button:hover {
+            background-color: #555;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f0f0f0;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        nav {
+            margin-bottom: 20px;
+            background-color: #333;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        nav a {
+            margin-right: 10px;
+            text-decoration: none;
+            color: white;
+            padding: 5px 10px;
+        }
+        nav a:hover {
+            background-color: #555;
+            border-radius: 4px;
+        }
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px 0;
+        }
+        .product {
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .product h3 {
+            margin: 10px 0;
+            color: #333;
+        }
+        .price {
+            font-size: 1.2em;
+            color: #2c5282;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <a href="/">domu</a>
+            <a href="/cart">kosik {% if cart_count > 0 %}({{ cart_count }}){% endif %}</a>
+            <a href="/info">info</a>
+        </nav>
+        {% if message %}
+        <div class="message">
+            {{ message }}
+        </div>
+        {% endif %}
+        <h1>vitejte v nasem e-shopu</h1>
+        
+        <div class="products">
+            {% for product in products %}
+            <div class="product">
+                <h3>{{ product.name }}</h3>
+                <p>{{ product.description }}</p>
+                <p class="price">{{ product.price }} kc</p>
+                <a href="{{ url_for('add_to_cart', product_id=product.id) }}" class="btn">pridat do kosiku</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
